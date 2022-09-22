@@ -2,16 +2,12 @@ import users from '../data/users.json' assert {type:'json'};
 import mobile from '../data/mobile_devices.json' assert {type:'json'};
 import iot from '../data/iot_devices.json' assert {type:'json'};
 
-console.log(users);
-console.log(mobile);
-console.log(iot);
-
 
 // creating an object that contains users id paired with their devices id
 const userDevicePaired = {}
 
 
-function createUserDevicePair() {
+const  createUserDevicePair = () => {
 for (let i = 0; i < users.length; i++) {
   userDevicePaired[users[i].id] = [];
   for (let j = 0; j < mobile.length; j++) {
@@ -26,7 +22,7 @@ createUserDevicePair();
 //creating an object that contains users id paired with their iot id
 const iotPair = {};
 
-function createUserIotPair() {
+const createUserIotPair = () => {
 for (const user in userDevicePaired) {
   iotPair[user] = []
     for (let i = 0; i < iot.length; i++) {
@@ -37,7 +33,7 @@ for (const user in userDevicePaired) {
 createUserIotPair();
 
 //replacing user id with user name
-function userIdToUserName() {
+const  userIdToUserName = () => {
 for (const user in iotPair) {
   for (let i = 0; i < users.length; i++) {
     users[i].id === user ? iotPair[users[i].name] = iotPair[user] : undefined;
@@ -48,24 +44,18 @@ for (const user in iotPair) {
 
 userIdToUserName();
 
-console.log(iotPair)
-
 //creating an object that contains merged arrays of same named users 
 const userIotPair = {};
 
-
+const userNameIotPair = () => {
 for (const uName in iotPair) {
   const nameArr = uName.split(' ');
-  //console.log(obj2[uName])
-  //for (let i = 0; i < users.length; i++) {
-  //  console.log(obj2[uName] )
-  nameArr[0] === uName.split(' ')[0] ? userIotPair[nameArr[0]] = iotPair[uName] : undefined;
-  for (let i = 0; i < users.length; i++) {
-  
+  nameArr[0] === uName.split(' ')[0] ? userIotPair[nameArr[0]] = iotPair[uName]  : undefined;
   }
 }
-  
 
-  //= [...obj2[uName], ...obj2[uName]]
-console.log(userIotPair)
- 
+userNameIotPair();
+
+console.log(userIotPair);
+
+//I am missing a step where I take the value from users with the same name but a different id and add the iot id to the key with user name. Then output the length of that array. 
