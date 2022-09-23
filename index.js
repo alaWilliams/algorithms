@@ -44,18 +44,18 @@ for (const user in iotPair) {
 
 userIdToUserName();
 
-//creating an object that contains merged arrays of same named users 
-const userIotPair = {};
-
 const userNameIotPair = () => {
-for (const uName in iotPair) {
-  const nameArr = uName.split(' ');
-  nameArr[0] === uName.split(' ')[0] ? userIotPair[nameArr[0]] = iotPair[uName]  : undefined;
+for (const uName1 in iotPair) {
+  for (const uName2 in iotPair) {
+  const nameArr1 = uName1.split(' ');
+  const nameArr2 = uName2.split(' ');
+  if (uName1 !== uName2 && nameArr1[0] === nameArr2[0]) {
+    const sentence = `${nameArr1[0]} uses ${iotPair[uName1].length + iotPair[uName2].length} IoT devices.`
+    console.log(sentence)
+      } 
+    }
   }
 }
 
 userNameIotPair();
 
-console.log(userIotPair);
-
-//I am missing a step where I take the value from users with the same name but a different id and add the iot id to the key with user name. Then output the length of that array. 
