@@ -1,3 +1,5 @@
+//the code needs to be run in a browser and the result is logged to the console
+
 import users from '../data/users.json' assert {type:'json'};
 import mobile from '../data/mobile_devices.json' assert {type:'json'};
 import iot from '../data/iot_devices.json' assert {type:'json'};
@@ -43,19 +45,31 @@ for (const user in iotPair) {
 };
 
 userIdToUserName();
+const usedNames = []
 
 const userNameIotPair = () => {
-for (const uName1 in iotPair) {
-  for (const uName2 in iotPair) {
-  const nameArr1 = uName1.split(' ');
-  const nameArr2 = uName2.split(' ');
-  if (uName1 !== uName2 && nameArr1[0] === nameArr2[0]) {
-    const sentence = `${nameArr1[0]} uses ${iotPair[uName1].length + iotPair[uName2].length} IoT devices.`
-    console.log(sentence)
-      } 
+  OUTER_LOOP: for (const uName1 in iotPair) {
+     for (const uName2 in iotPair) {
+      const nameArr1 = uName1.split(' ');
+      const nameArr2 = uName2.split(' ');
+      const name1 = nameArr1[0];     
+
+      if (uName1 !== uName2 && nameArr1[0] === nameArr2[0]) {
+        const sentence = `${name1} uses ${iotPair[uName1].length + iotPair[uName2].length} IoT devices.`
+        
+        
+        for (let i = 0; i < users.length; i++) {
+          if (usedNames[i] === name1) {break OUTER_LOOP;}
+        else {
+          usedNames.push(name1);
+          }
+        }
+        console.log(sentence);
+        } 
+      }
     }
-  }
 }
+
 
 userNameIotPair();
 
